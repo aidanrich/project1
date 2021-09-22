@@ -14,44 +14,45 @@ fetch(last3Months)
     })
     .then(function (data) {
 
-
-        console.log(data);
-        for (let index = 1; index < data.results.length; index++) {
-
-            var gameTitle = document.createElement('p');
-            var backgroundImageEl = document.createElement('img');
-            var genresEl = document.createElement('p');
-            var ownedEl = document.createElement('p');
-            var dateReleased = document.createElement('p');
-            var peoplePlaying = document.createElement('p');
-
-            var divStyleEl = document.createElement('div');
-            backgroundImageEl.setAttribute("src", imageBack);
+        function display() {
 
 
+            console.log(data);
+            for (let index = 1; index < data.results.length; index++) {
 
+                var gameTitle = document.createElement('p');
+                var backgroundImageEl = document.createElement('img');
+                var genresEl = document.createElement('p');
+                var ownedEl = document.createElement('p');
+                var dateReleased = document.createElement('p');
+                var peoplePlaying = document.createElement('p');
 
-            var imageBack = data.results[index].short_screenshots[1].image;
-            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-            genresEl.innerHTML = "Genre type:"+ " " + data.results[index].genres[0].name;
-            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
-
-
-            divStyleEl.append(backgroundImageEl);
-            divStyleEl.append(gameTitle);
-            divStyleEl.append(dateReleased);
-            divStyleEl.append(genresEl);
-            divStyleEl.append(ownedEl);
-            divStyleEl.append(peoplePlaying);
-
-            displayInfo.append(divStyleEl);
-
-        }
+                var divStyleEl = document.createElement('div');
+                backgroundImageEl.setAttribute("src", imageBack);
 
 
 
+
+                var imageBack = data.results[index].short_screenshots[1].image;
+                gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+                dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+                genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+                ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+                peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+
+
+                divStyleEl.append(backgroundImageEl);
+                divStyleEl.append(gameTitle);
+                divStyleEl.append(dateReleased);
+                divStyleEl.append(genresEl);
+                divStyleEl.append(ownedEl);
+                divStyleEl.append(peoplePlaying);
+
+                displayInfo.append(divStyleEl);
+
+            }
+
+        };
 
     });
 
