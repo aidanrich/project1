@@ -109,46 +109,46 @@ function renderSearched() {
     var userSelection = JSON.parse(localStorage.getItem("Searched"));
     console.log(userSelection);
 
-    var urlFront =  "https://api.rawg.io/api/games?"; 
-        var apiKey = "key=61eab2930fd5479c99f315c0016527b5";
-        var pcPlatform = "&platforms=4";
-        var playstationPlatform = "&platforms=187";
-        var xboxPlatform = "&platforms=186";
-         var indieGenre = "&genre=51;";
-         var adventureGenre = "&genre=3";
-         var actionGenre = "&genre=4";
-         var rpgGenre = "&genre=5";
-        var shooterGenre = "&genre=2";
+    var urlFront = "https://api.rawg.io/api/games?";
+    var apiKey = "&key=61eab2930fd5479c99f315c0016527b5";
+    var pcPlatform = "&platforms=4";
+    var playstationPlatform = "&platforms=187";
+    var xboxPlatform = "&platforms=186";
+    var indieGenre = "&genre=51";
+    var adventureGenre = "&genre=3";
+    var actionGenre = "&genre=4";
+    var rpgGenre = "&genre=5";
+    var shooterGenre = "&genre=2";
 
-        if (data.genre === "Indie" & data.platform ==="PC"){
-            requestUrlgames = urlFront.concat(indieGenre + pcPlatform + apikey);
-        }else if (data.platform === "Adventure" & data.platform ==="PC"){
-            requestUrlgames = urlFront.concat(adventureGenre + pcPlatform + apikey);
-        }else if (data.platform === "Action" & data.platform ==="PC"){
-            requestUrlgames = urlFront.concat(actionGenre + pcPlatform + apikey);
-        }else if (data.platform === "RPG" & data.platform ==="PC"){
-            requestUrlgames = urlFront.concat(rpgGenre + pcPlatform + apikey);
-        }else if (data.genre === "Indie" & data.platform ==="Playstation 5"){
-            requestUrlgames = urlFront.concat(indieGenre + playstationPlatform + apikey);
-        }else if (data.genre === "Adventure" & data.platform ==="Playstation 5"){
-            requestUrlgames = urlFront.concat(adventureGenre + playstationPlatform + apikey);
-        }else if (data.genre === "Action" & data.platform ==="Playstation 5"){
-            requestUrlgames = urlFront.concat(actionGenre + playstationPlatform + apikey);
-        }else if (data.genre === "RPG" & data.platform ==="Playstation 5"){
-            requestUrlgames = urlFront.concat(rpgGenre + playstationPlatform + apikey);
-        }else if (data.genre === "Indie" & data.platform ==="Playstation 5"){
-            requestUrlgames = urlFront.concat(indieGenre + playstationPlatform + apikey);
-        }else if (data.genre === "Indie" & data.platform ==="Xbox series X"){
-            requestUrlgames = urlFront.concat(indieGenre + xboxPlatform + apikey);
-        }else if (data.genre === "Adventure" & data.platform ==="Xbox series X"){
-            requestUrlgames = urlFront.concat(adventureGenre + xboxPlatform + apikey);
-        }else if (data.genre === "Action" & data.platform ==="Xbox series X"){
-            requestUrlgames = urlFront.concat(actionGenre + xboxPlatform + apikey);
-        }else if (data.genre === "RPG" & data.platform ==="Xbox series X"){
-            requestUrlgames = urlFront.concat(rpgGenre + xboxPlatform + apikey);
-        }
+    if (userSelection.genre === "Indie" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(indieGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "Adventure" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(adventureGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "Action" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(actionGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "RPG" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(rpgGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "Indie" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(indieGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Adventure" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(adventureGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Action" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(actionGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "RPG" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(rpgGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Indie" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(indieGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Indie" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(indieGenre, xboxPlatform, apiKey);
+    } else if (userSelection.genre === "Adventure" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(adventureGenre, xboxPlatform, apiKey);
+    } else if (userSelection.genre === "Action" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(actionGenre, xboxPlatform, apiKey);
+    } else if (userSelection.genre === "RPG" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(rpgGenre, xboxPlatform, apiKey);
+    }
+    console.log(requestUrlgames);
 
-    
 }
 
 // Aidan's fetch request
