@@ -34,7 +34,7 @@ fetch(last3Months)
             var imageBack = data.results[index].short_screenshots[1].image;
             gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
             dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-            genresEl.innerHTML = "Genre type:"+ " " + data.results[index].genres[0].name;
+            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
             ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
             peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
 
@@ -57,25 +57,31 @@ fetch(last3Months)
 
 
 // Aidan's fetch request
+// 
 
-// var search = "sonic"
+var searchBook = document.querySelector("#searcher");
+var bookButton = document.querySelector("#bookbutton")
 
-// fetch("https://openlibrary.org/subjects/" + search + ".json?published_in=2000-2021")
-//     .then(function (response) {
-//         return response.json();
-//     })
-//     .then(function (data) {
+bookButton.addEventListener("click", () => {
+    fetch("https://openlibrary.org/subjects/" + searchBook.value + ".json?published_in=2000-2021")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            var bookTitle = document.createElement('h4');
+            var bookAuthor = document.createElement('h4');
+            var bookCover = document.createElement('img');
 
-//         if (data.work_count == 0) {
-//             console.log("No data");
-//         }
-//         else
-//             console.log(data);
-//             // title and author info
-//         console.log(data.works[0].title);
-//         console.log(data.works[0].authors[0].name);
-//             // if we want to pull a cover image
-//         var bookCover = document.createElement('img');
-//         bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
 
-//     })
+            if (data.work_count == 0) {
+                bookTitle.textContent = "Sorry, no books available yet.";
+            }
+            else
+                console.log(data);
+            // title and author info
+            bookTitle.textContent = data.works[0].title;
+            bookAuthor.textContent = data.works[0].authors[0].name;            
+            bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
+
+        })
+});
