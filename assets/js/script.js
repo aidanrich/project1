@@ -1,11 +1,9 @@
-var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5&dates=2019-09-01,2019-09-30&platforms=18,1,7";
-
-var last3Months = "https://api.rawg.io/api/games?dates=2021-06-01,2021-09-01&platforms=187,4,186&key=61eab2930fd5479c99f315c0016527b5"
-var apiKey = "key=61eab2930fd5479c99f315c0016527b5";
+var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5";
 
 var displayInfo = document.getElementById('displayInfo');
+var saveButton = document.getElementById("Submit");
 
-fetch(last3Months)
+fetch(requestUrlgames)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
     .then(function (response) {
@@ -13,6 +11,38 @@ fetch(last3Months)
 
     })
     .then(function (data) {
+
+        var platSearch = document.getElementById("platform");
+        var genreSearch = document.getElementById("genre");
+        var usersChoice = platSearch.value;
+        var usersChoiceGenre = genreSearch.value;
+        console.log(usersChoice);
+        console.log(usersChoiceGenre);
+
+
+        // function display() {
+
+        // var urlFront =  "https://api.rawg.io/api/games?"; 
+        // var apiKey = "key=61eab2930fd5479c99f315c0016527b5";
+        // var pcPlatform = "&platforms=4";
+        // var playstationPlatform = "&platforms=187";
+        // var xboxPlatform = "&platforms=186";
+        //  var indieGenre = "&genre=51;";
+        //  var adventureGenre = "&genre=3";
+        //  var actionGenre = "&genre=4";
+        //  var rpgGenre = "&genre=5";
+        // var shooterGenre = "&genre=2";
+
+
+        //         fetch(last3Months)
+        // //fetch is first calling for the URL the promising to wait until it is ready to
+
+        // .then(function (response) {
+        //     return response.json();
+
+        // })
+        // .then(function (data){
+
 
 
         console.log(data);
@@ -48,15 +78,78 @@ fetch(last3Months)
 
             displayInfo.append(divStyleEl);
 
-            console.log(data.results[index].name)
-
-
-
-
-
-
         }
     });
+//     };
+
+// });
+
+// function handleFormSubmit(event){
+//     event.preventDefault();
+
+//     var chosenPlatform = 
+// }
+var platSearch = document.getElementById("platform");
+var genreSearch = document.getElementById("genre");
+
+saveButton.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    var usersChoice = {
+        platform: platSearch.value,
+        genre: genreSearch.value
+    };
+
+    localStorage.setItem("Searched", JSON.stringify(usersChoice));
+    renderSearched();
+
+});
+
+function renderSearched() {
+    var userSelection = JSON.parse(localStorage.getItem("Searched"));
+    console.log(userSelection);
+
+    var urlFront = "https://api.rawg.io/api/games?";
+    var apiKey = "&key=61eab2930fd5479c99f315c0016527b5";
+    var pcPlatform = "&platforms=4";
+    var playstationPlatform = "&platforms=187";
+    var xboxPlatform = "&platforms=186";
+    var indieGenre = "&genre=51";
+    var adventureGenre = "&genre=3";
+    var actionGenre = "&genre=4";
+    var rpgGenre = "&genre=5";
+    var shooterGenre = "&genre=2";
+
+    if (userSelection.genre === "Indie" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(indieGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "Adventure" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(adventureGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "Action" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(actionGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "RPG" & userSelection.platform === "PC") {
+        requestUrlgames = urlFront.concat(rpgGenre, pcPlatform, apiKey);
+    } else if (userSelection.genre === "Indie" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(indieGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Adventure" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(adventureGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Action" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(actionGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "RPG" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(rpgGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Indie" & userSelection.platform === "Playstation 5") {
+        requestUrlgames = urlFront.concat(indieGenre, playstationPlatform, apiKey);
+    } else if (userSelection.genre === "Indie" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(indieGenre, xboxPlatform, apiKey);
+    } else if (userSelection.genre === "Adventure" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(adventureGenre, xboxPlatform, apiKey);
+    } else if (userSelection.genre === "Action" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(actionGenre, xboxPlatform, apiKey);
+    } else if (userSelection.genre === "RPG" & userSelection.platform === "Xbox series X") {
+        requestUrlgames = urlFront.concat(rpgGenre, xboxPlatform, apiKey);
+    }
+    console.log(requestUrlgames);
+
+}
 
 // Aidan's fetch request
 // var bookTitleCard = document.querySelector("#book-title");
