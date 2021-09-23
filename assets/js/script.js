@@ -115,19 +115,15 @@ fetch(requestUrlgames)
             $("#box"+index).text(title);
     
         
+            fetch(requestUrlgames)
+            //fetch is first calling for the URL the promising to wait until it is ready to
         
-
         }
+        
     });
-//     };
 
-// });
 
-// function handleFormSubmit(event){
-//     event.preventDefault();
 
-//     var chosenPlatform = 
-// }
 var platSearch = document.getElementById("platform");
 var genreSearch = document.getElementById("genre");
 
