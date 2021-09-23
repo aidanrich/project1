@@ -3,61 +3,6 @@ var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c
 var displayInfo = document.getElementById('displayInfo');
 var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
-<<<<<<< HEAD
-$(function () {
-    $("#gameInfo").hide();
-
-});
-
-var i = 1;
-function info() {
-    $("#infoGrab").hide();
-    $('#infoGrab').css({
-        'position': 'absolute',
-        'left': '50%',
-        'top': '50%',
-        'margin-left': -$('#infoGrab').width() / 2,
-        'margin-top': -$('#infoGrab').height() / 2,
-        "z-index": 99,
-
-    });
-    $("#infoGrab").fadeIn();
-};
-
-
-
-function tile() {
-    console.log("clicked tile")
-    let divRemaining = []
-    for (let i = 1; i <= 18; i++) {
-        divRemaining.push(i)
-
-    }
-
-    var timer = setInterval(function () {
-        if (i <= 18) { remTile(); }
-        else { stop(); }
-        i = i + 1;
-    }, 200)
-
-
-    function remTile() {
-        let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
-        console.log(randomElement);
-        $("#box" + randomElement).animate({ "opacity": 0 });
-        x = divRemaining.indexOf(randomElement)
-        divRemaining.splice(x, 1);
-        console.log(divRemaining);
-
-    }
-    function stop() { clearInterval(timer); console.log("exited Interval") }
-
-
-
-
-};
-
-=======
  $(function(){
             $("#gameInfo").hide();
             
@@ -132,7 +77,6 @@ function tile() {
                 
                 
             };
->>>>>>> 3fa186d56c306c8661bc5317d6bc6636b206c7ef
 fetch(requestUrlgames)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
@@ -191,7 +135,6 @@ fetch(requestUrlgames)
                 "background-size": "cover",
                 "color": "white"
             });
-<<<<<<< HEAD
             $("#box" + index).text(title);
 
             fetch("https://openlibrary.org/subjects/" + title.value + ".json?published_in=2000-2021")
@@ -215,7 +158,6 @@ fetch(requestUrlgames)
                     bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
 
                 })
-=======
             $("#box"+index).text(title);
     
         
@@ -238,7 +180,6 @@ fetch(requestUrlgames)
             backgroundImageEl.setAttribute("src", imageBack);
 
 
->>>>>>> 3fa186d56c306c8661bc5317d6bc6636b206c7ef
 
 
             var imageBack = data.results[index].short_screenshots[1].image;
