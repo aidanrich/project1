@@ -23,8 +23,8 @@ function info() {
 };
 
 
-var boxEl = document.querySelector("button")
-boxEl.addEventListener("click", () => {
+
+function tile() {
     console.log("clicked tile")
     let divRemaining = []
     for (let i = 1; i <= 18; i++) {
@@ -50,10 +50,10 @@ boxEl.addEventListener("click", () => {
     }
     function stop() { clearInterval(timer); console.log("exited Interval") }
 
-    
 
 
-});
+
+};
 
 fetch(requestUrlgames)
     //fetch is first calling for the URL the promising to wait until it is ready to
@@ -104,7 +104,7 @@ fetch(requestUrlgames)
             divStyleEl.append(ownedEl);
             divStyleEl.append(peoplePlaying);
 
-            displayInfo.append(divStyleEl);
+            // displayInfo.append(divStyleEl);
 
             let url = data.results[index].background_image;
             let title = data.results[index].name;
@@ -115,7 +115,27 @@ fetch(requestUrlgames)
             });
             $("#box" + index).text(title);
 
+            fetch("https://openlibrary.org/subjects/" + title.value + ".json?published_in=2000-2021")
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    var bookTitle = document.createElement('h4');
+                    var bookAuthor = document.createElement('h4');
+                    var bookCover = document.createElement('img');
 
+
+                    if (data.work_count == 0) {
+                        bookTitle.textContent = "Sorry, no books available yet.";
+                    }
+                    else
+                        console.log(data);
+                    // title and author info
+                    bookTitle.textContent = data.works[0].title;
+                    bookAuthor.textContent = data.works[0].authors[0].name;
+                    bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
+
+                })
 
 
         }
@@ -192,32 +212,12 @@ function renderSearched() {
 }
 
 // Aidan's fetch request
-// var bookTitleCard = document.querySelector("#book-title");
-// var bookAuthCard = document.querySelector("#book-author");
-// var bookCoverCard = document.querySelector("#book-cover");
+var bookTitleCard = document.querySelector("#book-title");
+var bookAuthCard = document.querySelector("#book-author");
+var bookCoverCard = document.querySelector("#book-cover");
 // var temp = data.results[0].name;
 // bookButton.addEventListener("click", () => {
-//     fetch("https://openlibrary.org/subjects/" + temp + ".json?published_in=2000-2021")
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             var bookTitle = document.createElement('h4');
-//             var bookAuthor = document.createElement('h4');
-//             var bookCover = document.createElement('img');
 
-
-//             if (data.work_count == 0) {
-//                 bookTitle.textContent = "Sorry, no books available yet.";
-//             }
-//             else
-//                 console.log(data.works[0].title);
-//             // title and author info
-//             bookTitle.textContent = data.works[0].title;
-//             bookAuthor.textContent = data.works[0].authors[0].name;
-//             bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
-
-//         })
 // });
 
 
