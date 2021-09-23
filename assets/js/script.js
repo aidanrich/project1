@@ -59,11 +59,15 @@ fetch(last3Months)
 // Aidan's fetch request
 // 
 
-var searchBook = document.querySelector("#searcher");
-var bookButton = document.querySelector("#bookbutton")
+// var searchBook = document.querySelector("#searcher");
+// var bookButton = document.querySelector("#bookbutton");
+
+var bookTitleCard = document.querySelector("#book-title");
+var bookAuthCard = document.querySelector("#book-author");
+var bookCoverCard = document.querySelector("#book-cover");
 
 bookButton.addEventListener("click", () => {
-    fetch("https://openlibrary.org/subjects/" + searchBook.value + ".json?published_in=2000-2021")
+    fetch("https://openlibrary.org/subjects/" + gameTitle.value + ".json?published_in=2000-2021")
         .then(function (response) {
             return response.json();
         })
