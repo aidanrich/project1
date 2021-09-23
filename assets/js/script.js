@@ -2,58 +2,60 @@ var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c
 
 var displayInfo = document.getElementById('displayInfo');
 var saveButton = document.getElementById("Submit");
- $(function(){
-            $("#gameInfo").hide();
-            
-            });
-            
-             var i=1;
-            function info(){
-                $("#infoGrab").hide();
-                $('#infoGrab').css({
-                    'position' : 'absolute',
-                    'left' : '50%',
-                    'top' : '50%',
-                    'margin-left' : -$('#infoGrab').width()/2,
-                    'margin-top' : -$('#infoGrab').height()/2,
-                    "z-index": 99,
-                    
-                });
-                $("#infoGrab").fadeIn();
-            };
-            
-            
-            
-            function tile(){
-                console.log("clicked tile")
-                let divRemaining = []
-                for(let i=1; i<=18;i++){
-                    divRemaining.push(i)
-            
-                }
-            
-                var timer =setInterval(function(){
-                    if(i<=18){remTile();}
-                    else{stop();}
-                    i=i+1;
-                },200)
-                
-                
-                    function remTile(){
-                        let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
-                        console.log(randomElement);
-                        $("#box"+randomElement).animate({"opacity":0});
-                        x = divRemaining.indexOf(randomElement)
-                        divRemaining.splice(x,1);
-                        console.log(divRemaining);
-                        
-                    }
-                    function stop(){clearInterval(timer);console.log("exited Interval")}
-                
-            
-                
-                
-            };
+$(function () {
+    $("#gameInfo").hide();
+
+});
+
+var i = 1;
+function info() {
+    $("#infoGrab").hide();
+    $('#infoGrab').css({
+        'position': 'absolute',
+        'left': '50%',
+        'top': '50%',
+        'margin-left': -$('#infoGrab').width() / 2,
+        'margin-top': -$('#infoGrab').height() / 2,
+        "z-index": 99,
+
+    });
+    $("#infoGrab").fadeIn();
+};
+
+
+var boxEl = document.querySelector(".tile")
+
+boxEl.addEventListener("click", () => {
+    console.log("clicked tile")
+    let divRemaining = []
+    for (let i = 1; i <= 18; i++) {
+        divRemaining.push(i)
+
+    }
+
+    var timer = setInterval(function () {
+        if (i <= 18) { remTile(); }
+        else { stop(); }
+        i = i + 1;
+    }, 200)
+
+
+    function remTile() {
+        let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
+        console.log(randomElement);
+        $("#box" + randomElement).animate({ "opacity": 0 });
+        x = divRemaining.indexOf(randomElement)
+        divRemaining.splice(x, 1);
+        console.log(divRemaining);
+
+    }
+    function stop() { clearInterval(timer); console.log("exited Interval") }
+
+
+
+
+});
+
 fetch(requestUrlgames)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
@@ -70,8 +72,8 @@ fetch(requestUrlgames)
         console.log(usersChoice);
         console.log(usersChoiceGenre);
 
-       
-    
+
+
         console.log(data);
         for (let index = 1; index < data.results.length; index++) {
 
@@ -106,16 +108,16 @@ fetch(requestUrlgames)
             displayInfo.append(divStyleEl);
 
             let url = data.results[index].background_image;
-            let title= data.results[index].name;
-            $("#box"+index).css({
-                "background-image": "url("+ url+")",
+            let title = data.results[index].name;
+            $("#box" + index).css({
+                "background-image": "url(" + url + ")",
                 "background-size": "cover",
                 "color": "white"
             });
-            $("#box"+index).text(title);
-    
-        
-        
+            $("#box" + index).text(title);
+
+
+
 
         }
     });
@@ -192,32 +194,32 @@ function renderSearched() {
 
 // Aidan's fetch request
 // var bookTitleCard = document.querySelector("#book-title");
-var bookAuthCard = document.querySelector("#book-author");
-var bookCoverCard = document.querySelector("#book-cover");
-var temp = data.results[0].name;
-bookButton.addEventListener("click", () => {
-    fetch("https://openlibrary.org/subjects/" + temp + ".json?published_in=2000-2021")
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            var bookTitle = document.createElement('h4');
-            var bookAuthor = document.createElement('h4');
-            var bookCover = document.createElement('img');
+// var bookAuthCard = document.querySelector("#book-author");
+// var bookCoverCard = document.querySelector("#book-cover");
+// var temp = data.results[0].name;
+// bookButton.addEventListener("click", () => {
+//     fetch("https://openlibrary.org/subjects/" + temp + ".json?published_in=2000-2021")
+//         .then(function (response) {
+//             return response.json();
+//         })
+//         .then(function (data) {
+//             var bookTitle = document.createElement('h4');
+//             var bookAuthor = document.createElement('h4');
+//             var bookCover = document.createElement('img');
 
 
-            if (data.work_count == 0) {
-                bookTitle.textContent = "Sorry, no books available yet.";
-            }
-            else
-                console.log(data.works[0].title);
-            // title and author info
-            bookTitle.textContent = data.works[0].title;
-            bookAuthor.textContent = data.works[0].authors[0].name;
-            bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
+//             if (data.work_count == 0) {
+//                 bookTitle.textContent = "Sorry, no books available yet.";
+//             }
+//             else
+//                 console.log(data.works[0].title);
+//             // title and author info
+//             bookTitle.textContent = data.works[0].title;
+//             bookAuthor.textContent = data.works[0].authors[0].name;
+//             bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
 
-        })
-});
+//         })
+// });
 
 
 // var searchBook = document.querySelector("#searcher");
