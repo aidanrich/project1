@@ -1,6 +1,7 @@
 var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5";
 
 var displayInfo = document.getElementById('displayInfo');
+var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
  $(function(){
             $("#gameInfo").hide();
@@ -137,19 +138,50 @@ fetch(requestUrlgames)
             $("#box"+index).text(title);
     
         
+            fetch(requestUrlgames)
+            
+            .then(function (response) {
+                return response.json();
         
+            })
+            .then(function (data) { 
 
+            var gameTitle = document.createElement('p');
+            var backgroundImageEl = document.createElement('img');
+            var genresEl = document.createElement('p');
+            var ownedEl = document.createElement('p');
+            var dateReleased = document.createElement('p');
+            var peoplePlaying = document.createElement('p');
+
+            var divStyleEl = document.createElement('div');
+            backgroundImageEl.setAttribute("src", imageBack);
+
+
+
+
+            var imageBack = data.results[index].short_screenshots[1].image;
+            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+
+            divStyleEl.append(backgroundImageEl);
+            divStyleEl.append(gameTitle);
+            divStyleEl.append(dateReleased);
+            divStyleEl.append(genresEl);
+            divStyleEl.append(ownedEl);
+            divStyleEl.append(peoplePlaying);
+
+            gameInfo.append(divStyleEl);
+
+            });
         }
+        
     });
-//     };
 
-// });
 
-// function handleFormSubmit(event){
-//     event.preventDefault();
 
-//     var chosenPlatform = 
-// }
 var platSearch = document.getElementById("platform");
 var genreSearch = document.getElementById("genre");
 
