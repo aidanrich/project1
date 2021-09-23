@@ -2,24 +2,7 @@ var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c
 
 var displayInfo = document.getElementById('displayInfo');
 var saveButton = document.getElementById("Submit");
-
-fetch(requestUrlgames)
-    //fetch is first calling for the URL the promising to wait until it is ready to
-
-    .then(function (response) {
-        return response.json();
-
-    })
-    .then(function (data) {
-
-        var platSearch = document.getElementById("platform");
-        var genreSearch = document.getElementById("genre");
-        var usersChoice = platSearch.value;
-        var usersChoiceGenre = genreSearch.value;
-        console.log(usersChoice);
-        console.log(usersChoiceGenre);
-
-        $(function(){
+ $(function(){
             $("#gameInfo").hide();
             
             });
@@ -42,6 +25,7 @@ fetch(requestUrlgames)
             
             
             function tile(){
+                console.log("clicked tile")
                 let divRemaining = []
                 for(let i=1; i<=18;i++){
                     divRemaining.push(i)
@@ -70,6 +54,23 @@ fetch(requestUrlgames)
                 
                 
             };
+fetch(requestUrlgames)
+    //fetch is first calling for the URL the promising to wait until it is ready to
+
+    .then(function (response) {
+        return response.json();
+
+    })
+    .then(function (data) {
+
+        var platSearch = document.getElementById("platform");
+        var genreSearch = document.getElementById("genre");
+        var usersChoice = platSearch.value;
+        var usersChoiceGenre = genreSearch.value;
+        console.log(usersChoice);
+        console.log(usersChoiceGenre);
+
+       
     
         console.log(data);
         for (let index = 1; index < data.results.length; index++) {
