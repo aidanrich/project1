@@ -157,6 +157,12 @@ fetch(requestUrlgames)
                     bookAuthor.textContent = data.works[0].authors[0].name;
                     bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
 
+                    bookTitleCard.append(bookTitle);
+                    bookTitleCard.append(bookAuthor);
+                    bookTitleCard.append(bookCover);
+
+
+
                 })
             $("#box"+index).text(title);
     
@@ -269,9 +275,6 @@ function renderSearched() {
 
 // Aidan's fetch request
 var bookTitleCard = document.querySelector("#book-title");
-var bookAuthCard = document.querySelector("#book-author");
-var bookCoverCard = document.querySelector("#book-cover");
-// var temp = data.results[0].name;
 // bookButton.addEventListener("click", () => {
 
 // });
