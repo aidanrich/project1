@@ -23,8 +23,7 @@ function info() {
 };
 
 
-var boxEl = document.querySelector(".tile")
-
+var boxEl = document.querySelector("button")
 boxEl.addEventListener("click", () => {
     console.log("clicked tile")
     let divRemaining = []
@@ -51,7 +50,7 @@ boxEl.addEventListener("click", () => {
     }
     function stop() { clearInterval(timer); console.log("exited Interval") }
 
-
+    
 
 
 });
