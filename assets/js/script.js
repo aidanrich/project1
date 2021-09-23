@@ -24,19 +24,23 @@ var saveButton = document.getElementById("Submit");
             
             
             
-            function tile(){
-                console.log("clicked tile")
+            function tile(id){
+                let idNum = id.replace(/\D/g,'');
+                console.log("this is the id of clicked box: "+ idNum)
                 let divRemaining = []
-                for(let i=1; i<=18;i++){
-                    divRemaining.push(i)
+                for(let i=1; i<=19;i++){
+                    if(i!= idNum){ divRemaining.push(i)}
+                   
             
                 }
-            
+                    y = divRemaining.indexOf(idNum);
+                    divRemaining.splice(y,1);
                 var timer =setInterval(function(){
                     if(i<=18){remTile();}
                     else{stop();}
                     i=i+1;
                 },200)
+                
                 
                 
                     function remTile(){
@@ -48,7 +52,25 @@ var saveButton = document.getElementById("Submit");
                         console.log(divRemaining);
                         
                     }
-                    function stop(){clearInterval(timer);console.log("exited Interval")}
+                    function stop(){
+                        clearInterval(timer);
+                        console.log("exited Interval")
+                        var coord = $("#"+id).offset();
+                        $("#"+id).css({
+                            "position": "absolute",
+                            "top": coord.top,
+                            "left": coord.left,
+                            
+                        })
+                        $("#"+id).animate({
+                                top:"200px",
+                                left: "100px",
+                                width:"40%",
+                                height: "60%"
+
+                        })
+                        $("#"+id).empty();
+                    }
                 
             
                 
