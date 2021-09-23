@@ -2,7 +2,58 @@ var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c
 
 var displayInfo = document.getElementById('displayInfo');
 var saveButton = document.getElementById("Submit");
-
+ $(function(){
+            $("#gameInfo").hide();
+            
+            });
+            
+             var i=1;
+            function info(){
+                $("#infoGrab").hide();
+                $('#infoGrab').css({
+                    'position' : 'absolute',
+                    'left' : '50%',
+                    'top' : '50%',
+                    'margin-left' : -$('#infoGrab').width()/2,
+                    'margin-top' : -$('#infoGrab').height()/2,
+                    "z-index": 99,
+                    
+                });
+                $("#infoGrab").fadeIn();
+            };
+            
+            
+            
+            function tile(){
+                console.log("clicked tile")
+                let divRemaining = []
+                for(let i=1; i<=18;i++){
+                    divRemaining.push(i)
+            
+                }
+            
+                var timer =setInterval(function(){
+                    if(i<=18){remTile();}
+                    else{stop();}
+                    i=i+1;
+                },200)
+                
+                
+                    function remTile(){
+                        let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
+                        console.log(randomElement);
+                        $("#box"+randomElement).animate({"opacity":0});
+                        x = divRemaining.indexOf(randomElement)
+                        divRemaining.splice(x,1);
+                        console.log(divRemaining);
+                        
+                    }
+                    function stop(){clearInterval(timer);console.log("exited Interval")}
+                
+            
+                
+                
+            };
 fetch(requestUrlgames)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
@@ -19,32 +70,8 @@ fetch(requestUrlgames)
         console.log(usersChoice);
         console.log(usersChoiceGenre);
 
-
-        // function display() {
-
-        // var urlFront =  "https://api.rawg.io/api/games?"; 
-        // var apiKey = "key=61eab2930fd5479c99f315c0016527b5";
-        // var pcPlatform = "&platforms=4";
-        // var playstationPlatform = "&platforms=187";
-        // var xboxPlatform = "&platforms=186";
-        //  var indieGenre = "&genre=51;";
-        //  var adventureGenre = "&genre=3";
-        //  var actionGenre = "&genre=4";
-        //  var rpgGenre = "&genre=5";
-        // var shooterGenre = "&genre=2";
-
-
-        //         fetch(last3Months)
-        // //fetch is first calling for the URL the promising to wait until it is ready to
-
-        // .then(function (response) {
-        //     return response.json();
-
-        // })
-        // .then(function (data){
-
-
-
+       
+    
         console.log(data);
         for (let index = 1; index < data.results.length; index++) {
 
@@ -77,6 +104,18 @@ fetch(requestUrlgames)
             divStyleEl.append(peoplePlaying);
 
             displayInfo.append(divStyleEl);
+
+            let url = data.results[index].background_image;
+            let title= data.results[index].name;
+            $("#box"+index).css({
+                "background-image": "url("+ url+")",
+                "background-size": "cover",
+                "color": "white"
+            });
+            $("#box"+index).text(title);
+    
+        
+        
 
         }
     });
