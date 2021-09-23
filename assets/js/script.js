@@ -146,19 +146,24 @@ fetch(requestUrlgames)
             });
             $("#box" + index).text(title);
 
-<<<<<<< HEAD
-            fetch("https://openlibrary.org/subjects/" + title.value + ".json?published_in=2000-2021")
+            fetch("https://openlibrary.org/search.json?title=" + title.value + "published_in=2000-2021")
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
+                    console.log(data)
+
+
+
+
                     var bookTitle = document.createElement('h4');
                     var bookAuthor = document.createElement('h4');
                     var bookCover = document.createElement('img');
 
 
-                    if (data.work_count == 0) {
+                    if (data.work_count === 0) {
                         bookTitle.textContent = "Sorry, no books available yet.";
+                        return;
                     }
                     else
                         console.log(data);
@@ -170,16 +175,16 @@ fetch(requestUrlgames)
                     bookTitleCard.append(bookTitle);
                     bookTitleCard.append(bookAuthor);
                     bookTitleCard.append(bookCover);
-
+                    
 
 
                 })
-            $("#box"+index).text(title);
-    
-        
-=======
 
->>>>>>> ae7c32c9c9938a96762d72e5acf34d62f83a48b9
+            $("#box" + index).text(title);
+
+
+
+
             fetch(requestUrlgames)
 
                 .then(function (response) {
@@ -289,10 +294,12 @@ function renderSearched() {
 }
 
 // Aidan's fetch request
-var bookTitleCard = document.querySelector("#book-title");
-// bookButton.addEventListener("click", () => {
+var bookTitleCard = document.querySelector(".book-title");
 
-// });
+
+
+
+
 
 
 // var searchBook = document.querySelector("#searcher");
