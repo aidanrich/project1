@@ -48,26 +48,23 @@ fetch(last3Months)
 
             displayInfo.append(divStyleEl);
 
+            console.log(data.results[index].name)
+
+
+
+
+
+
         }
-
-
-
-
     });
 
-
 // Aidan's fetch request
-// 
-
-// var searchBook = document.querySelector("#searcher");
-// var bookButton = document.querySelector("#bookbutton");
-
-var bookTitleCard = document.querySelector("#book-title");
+// var bookTitleCard = document.querySelector("#book-title");
 var bookAuthCard = document.querySelector("#book-author");
 var bookCoverCard = document.querySelector("#book-cover");
-
+var temp = data.results[0].name;
 bookButton.addEventListener("click", () => {
-    fetch("https://openlibrary.org/subjects/" + gameTitle.value + ".json?published_in=2000-2021")
+    fetch("https://openlibrary.org/subjects/" + temp + ".json?published_in=2000-2021")
         .then(function (response) {
             return response.json();
         })
@@ -81,11 +78,16 @@ bookButton.addEventListener("click", () => {
                 bookTitle.textContent = "Sorry, no books available yet.";
             }
             else
-                console.log(data);
+                console.log(data.works[0].title);
             // title and author info
             bookTitle.textContent = data.works[0].title;
-            bookAuthor.textContent = data.works[0].authors[0].name;            
+            bookAuthor.textContent = data.works[0].authors[0].name;
             bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
 
         })
 });
+
+
+// var searchBook = document.querySelector("#searcher");
+// var bookButton = document.querySelector("#bookbutton");
+
