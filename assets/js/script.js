@@ -3,80 +3,89 @@ var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c
 var displayInfo = document.getElementById('displayInfo');
 var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
- $(function(){
-            $("#gameInfo").hide();
-            
-            });
-            
-             var i=1;
-            function info(){
-                $("#infoGrab").hide();
-                $('#infoGrab').css({
-                    'position' : 'absolute',
-                    'left' : '50%',
-                    'top' : '50%',
-                    'margin-left' : -$('#infoGrab').width()/2,
-                    'margin-top' : -$('#infoGrab').height()/2,
-                    "z-index": 99,
-                    
-                });
-                $("#infoGrab").fadeIn();
-            };
-            
-            
-            
-            function tile(id){
-                let idNum = id.replace(/\D/g,'');
-                console.log("this is the id of clicked box: "+ idNum)
-                let divRemaining = []
-                for(let i=1; i<=19;i++){
-                    if(i!= idNum){ divRemaining.push(i)}
-                   
-            
-                }
-                    y = divRemaining.indexOf(idNum);
-                    divRemaining.splice(y,1);
-                var timer =setInterval(function(){
-                    if(i<=18){remTile();}
-                    else{stop();}
-                    i=i+1;
-                },200)
-                
-                
-                
-                    function remTile(){
-                        let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
-                        console.log(randomElement);
-                        $("#box"+randomElement).animate({"opacity":0});
-                        x = divRemaining.indexOf(randomElement)
-                        divRemaining.splice(x,1);
-                        console.log(divRemaining);
-                        
-                    }
-                    function stop(){
-                        clearInterval(timer);
-                        console.log("exited Interval")
-                        var coord = $("#"+id).offset();
-                        $("#"+id).css({
-                            "position": "absolute",
-                            "top": coord.top,
-                            "left": coord.left,
-                            
-                        })
-                        $("#"+id).animate({
-                                top:"200px",
-                                left: "100px",
-                                width:"40%",
-                                height: "60%"
+$(function () {
+    $("#gameInfo").hide();
 
-                        })
-                        $("#"+id).empty();
-                    }
-                
-            
-                
-                
-            };
+});
+
+var i = 1;
+
+function info() {
+    $("#infoGrab").hide();
+    $('#infoGrab').css({
+        'position': 'absolute',
+        'left': '50%',
+        'top': '50%',
+        'margin-left': -$('#infoGrab').width() / 2,
+        'margin-top': -$('#infoGrab').height() / 2,
+        "z-index": 99,
+
+    });
+    $("#infoGrab").fadeIn();
+};
+
+
+
+function tile(id) {
+    let idNum = id.replace(/\D/g, '');
+    console.log("this is the id of clicked box: " + idNum)
+    let divRemaining = []
+    for (let i = 1; i <= 19; i++) {
+        if (i != idNum) {
+            divRemaining.push(i)
+        }
+
+
+    }
+    y = divRemaining.indexOf(idNum);
+    divRemaining.splice(y, 1);
+    var timer = setInterval(function () {
+        if (i <= 18) {
+            remTile();
+        } else {
+            stop();
+        }
+        i = i + 1;
+    }, 200)
+
+
+
+    function remTile() {
+        let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
+        console.log(randomElement);
+        $("#box" + randomElement).animate({
+            "opacity": 0
+        });
+        x = divRemaining.indexOf(randomElement)
+        divRemaining.splice(x, 1);
+        console.log(divRemaining);
+
+    }
+
+    function stop() {
+        clearInterval(timer);
+        console.log("exited Interval")
+        var coord = $("#" + id).offset();
+        $("#" + id).css({
+            "position": "absolute",
+            "top": coord.top,
+            "left": coord.left,
+
+        })
+        $("#" + id).animate({
+            top: "200px",
+            left: "100px",
+            width: "40%",
+            height: "60%"
+
+        })
+        $("#" + id).empty();
+    }
+
+
+
+
+};
 fetch(requestUrlgames)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
@@ -137,6 +146,7 @@ fetch(requestUrlgames)
             });
             $("#box" + index).text(title);
 
+<<<<<<< HEAD
             fetch("https://openlibrary.org/subjects/" + title.value + ".json?published_in=2000-2021")
                 .then(function (response) {
                     return response.json();
@@ -167,46 +177,51 @@ fetch(requestUrlgames)
             $("#box"+index).text(title);
     
         
+=======
+
+>>>>>>> ae7c32c9c9938a96762d72e5acf34d62f83a48b9
             fetch(requestUrlgames)
-            
-            .then(function (response) {
-                return response.json();
-        
-            })
-            .then(function (data) { 
 
-            var gameTitle = document.createElement('p');
-            var backgroundImageEl = document.createElement('img');
-            var genresEl = document.createElement('p');
-            var ownedEl = document.createElement('p');
-            var dateReleased = document.createElement('p');
-            var peoplePlaying = document.createElement('p');
+                .then(function (response) {
+                    return response.json();
 
-            var divStyleEl = document.createElement('div');
-            backgroundImageEl.setAttribute("src", imageBack);
+                })
+                .then(function (data) {
+
+                    for (let index = 1; index < data.results.length; index++) {
+
+                        var gameTitle = document.createElement('p');
+                        var backgroundImageEl = document.createElement('img');
+                        var genresEl = document.createElement('p');
+                        var ownedEl = document.createElement('p');
+                        var dateReleased = document.createElement('p');
+                        var peoplePlaying = document.createElement('p');
+
+                        var divStyleEl = document.createElement('div');
+                        backgroundImageEl.setAttribute("src", imageBack);
 
 
 
 
-            var imageBack = data.results[index].short_screenshots[1].image;
-            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+                        var imageBack = data.results[index].short_screenshots[1].image;
+                        gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+                        dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+                        genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+                        ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+                        peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
 
-            divStyleEl.append(backgroundImageEl);
-            divStyleEl.append(gameTitle);
-            divStyleEl.append(dateReleased);
-            divStyleEl.append(genresEl);
-            divStyleEl.append(ownedEl);
-            divStyleEl.append(peoplePlaying);
+                        divStyleEl.append(backgroundImageEl);
+                        divStyleEl.append(gameTitle);
+                        divStyleEl.append(dateReleased);
+                        divStyleEl.append(genresEl);
+                        divStyleEl.append(ownedEl);
+                        divStyleEl.append(peoplePlaying);
 
-            gameInfo.append(divStyleEl);
-
-            });
+                        gameInfo.append(divStyleEl);
+                    }
+                });
         }
-        
+
     });
 
 
