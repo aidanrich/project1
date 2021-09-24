@@ -222,6 +222,9 @@ fetch(url)
 
             title = title.replaceAll(" ", "+");
             title = title.replaceAll(":", "");
+            title = title.replaceAll("-", "");
+            title = title.replaceAll(")", "");
+            title = title.replaceAll("(", "");
             
             var bookReq = "https://openlibrary.org/search.json?title=" + title;
           
@@ -276,7 +279,7 @@ saveButton.addEventListener("click", function (event) {
     localStorage.setItem("Searched", JSON.stringify(usersChoice));
     renderSearched();
 
-    displayInfo.innerHTML = "";
+    // displayInfo.innerHTML = "";
 
 });
 
@@ -342,12 +345,13 @@ function renderSearched() {
                 var peoplePlaying = document.createElement('p');
 
                 var divStyleEl = document.createElement('div');
-                backgroundImageEl.setAttribute("src", imageBack);
+                
 
 
 
 
                 var imageBack = data.results[index].short_screenshots[1].image;
+                backgroundImageEl.setAttribute("src", imageBack);
                 gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
                 dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
                 genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
