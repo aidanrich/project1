@@ -1,3 +1,4 @@
+console.log("you got here");
 var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5";
 
 var displayInfo = document.getElementById('displayInfo');
@@ -115,12 +116,12 @@ fetch(requestUrlgames)
             var peoplePlaying = document.createElement('p');
 
             var divStyleEl = document.createElement('div');
+
+            var imageBack = data.results[index].short_screenshots[1].image;
+
             backgroundImageEl.setAttribute("src", imageBack);
 
 
-
-
-            var imageBack = data.results[index].short_screenshots[1].image;
             gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
             dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
             genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
@@ -145,8 +146,16 @@ fetch(requestUrlgames)
                 "color": "white"
             });
             $("#box" + index).text(title);
-
-            fetch("https://openlibrary.org/search.json?title=" + title.value + "published_in=2000-2021")
+            if (!title) {
+                console.log("no title")
+            }
+            
+            title = title.replaceAll(" ", "+");
+            title = title.replaceAll(":", "");
+            console.log(title);
+            var bookReq = "https://openlibrary.org/search.json?title=" + title;
+            console.log(bookReq);
+            fetch(bookReq)
                 .then(function (response) {
                     return response.json();
                 })
@@ -168,19 +177,19 @@ fetch(requestUrlgames)
                     else
                         console.log(data);
                     // title and author info
-                    bookTitle.textContent = data.works[0].title;
-                    bookAuthor.textContent = data.works[0].authors[0].name;
-                    bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
+                    bookTitle.textContent = data.docs[0].title;
+                    bookAuthor.textContent = data.docs[0].author_name[0];
+                    // bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.docs[0].cover_id}-L.jpg`);
 
                     bookTitleCard.append(bookTitle);
                     bookTitleCard.append(bookAuthor);
                     bookTitleCard.append(bookCover);
-                    
+
 
 
                 })
 
-            $("#box" + index).text(title);
+            
 
 
 
