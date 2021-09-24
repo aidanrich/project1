@@ -135,7 +135,7 @@ fetch(requestUrlgames)
             divStyleEl.append(ownedEl);
             divStyleEl.append(peoplePlaying);
 
-            displayInfo.append(divStyleEl);
+            // displayInfo.append(divStyleEl);
 
             let url = data.results[index].background_image;
             let title = data.results[index].name;
@@ -145,7 +145,90 @@ fetch(requestUrlgames)
                 "color": "white"
             });
             $("#box" + index).text(title);
+<<<<<<< HEAD
           
+=======
+
+            fetch("https://openlibrary.org/search.json?title=" + title.value + "published_in=2000-2021")
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data)
+
+
+
+
+                    var bookTitle = document.createElement('h4');
+                    var bookAuthor = document.createElement('h4');
+                    var bookCover = document.createElement('img');
+
+
+                    if (data.work_count === 0 || data.numFound === 0) {
+                        bookTitle.textContent = "Sorry, no books available yet.";
+                        return;
+                    }
+                    else
+                        console.log(data);
+                    // title and author info
+                    bookTitle.textContent = data.works[0].title;
+                    bookAuthor.textContent = data.works[0].authors[0].name;
+                    bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
+
+                    bookTitleCard.append(bookTitle);
+                    bookTitleCard.append(bookAuthor);
+                    bookTitleCard.append(bookCover);
+                    
+
+
+                })
+
+            $("#box" + index).text(title);
+
+
+
+
+            fetch(requestUrlgames)
+
+                .then(function (response) {
+                    return response.json();
+
+                })
+                .then(function (data) {
+
+                    for (let index = 1; index < data.results.length; index++) {
+
+                        var gameTitle = document.createElement('p');
+                        var backgroundImageEl = document.createElement('img');
+                        var genresEl = document.createElement('p');
+                        var ownedEl = document.createElement('p');
+                        var dateReleased = document.createElement('p');
+                        var peoplePlaying = document.createElement('p');
+
+                        var divStyleEl = document.createElement('div');
+                        backgroundImageEl.setAttribute("src", imageBack);
+
+
+
+
+                        var imageBack = data.results[index].short_screenshots[1].image;
+                        gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+                        dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+                        genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+                        ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+                        peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+
+                        divStyleEl.append(backgroundImageEl);
+                        divStyleEl.append(gameTitle);
+                        divStyleEl.append(dateReleased);
+                        divStyleEl.append(genresEl);
+                        divStyleEl.append(ownedEl);
+                        divStyleEl.append(peoplePlaying);
+
+                        gameInfo.append(divStyleEl);
+                    }
+                });
+>>>>>>> 3229f75dc5988d307730513672cdb934bc569f6c
         }
 
     });
@@ -256,25 +339,14 @@ fetch(requestUrlgames)
 });
 
 // Aidan's fetch request
+var bookTitleCard = document.querySelector(".book-title");
 
-// var search = "sonic"
 
-// fetch("https://openlibrary.org/subjects/" + search + ".json?published_in=2000-2021")
-//     .then(function (response) {
-//         return response.json();
-//     })
-//     .then(function (data) {
 
-//         if (data.work_count == 0) {
-//             console.log("No data");
-//         }
-//         else
-//             console.log(data);
-//             // title and author info
-//         console.log(data.works[0].title);
-//         console.log(data.works[0].authors[0].name);
-//             // if we want to pull a cover image
-//         var bookCover = document.createElement('img');
-//         bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.works[0].cover_id}-L.jpg`);
 
-//     })
+
+
+
+// var searchBook = document.querySelector("#searcher");
+// var bookButton = document.querySelector("#bookbutton");
+
