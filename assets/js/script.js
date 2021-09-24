@@ -5,7 +5,7 @@ var displayInfo = document.getElementById('displayInfo');
 var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
 $(function () {
-    $("#gameInfo").hide();
+    
     fetchGames(requestUrlgames);
     
 
@@ -108,6 +108,26 @@ function tile(id) {
 
         })
         $("#" + id).empty();
+// code to bring up game info tile 
+        let infoNum = id.replace(/\D/g, '');
+        let infoId = ("info"+infoNum);
+        $(".info").show();
+        $("#"+infoId).show();
+        $("#" + infoId).css({
+            "position": "absolute",
+            "top": coord.top,
+            "left": coord.left,
+
+        })
+        $("#" + infoId).animate({
+            top: "200px",
+            left: "800px",
+            width: "40%",
+            height: "60%"
+
+        })
+
+
     }
        
 
@@ -124,13 +144,13 @@ fetch(url)
 
     })
     .then(function (data) {
-        console.log(data)
+      
         var platSearch = document.getElementById("platform");
         var genreSearch = document.getElementById("genre");
         var usersChoice = platSearch.value;
         var usersChoiceGenre = genreSearch.value;
        
-        localStorage.setItem("fetchObject", data)
+        
 
 
         
@@ -177,6 +197,9 @@ fetch(url)
             if (!title) {
                
             }
+
+
+
 
             title = title.replaceAll(" ", "+");
             title = title.replaceAll(":", "");
