@@ -281,7 +281,7 @@ function renderSearched() {
 }
 
 // Aidan's fetch request
-var bookTitleCard = document.querySelector(".book-title");
+var bookTitleCard = document.querySelector("#gameInfo");
 
 
 
