@@ -161,7 +161,7 @@ fetch(requestUrlgames)
                     var bookCover = document.createElement('img');
 
 
-                    if (data.work_count === 0) {
+                    if (data.work_count === 0 || data.numFound === 0) {
                         bookTitle.textContent = "Sorry, no books available yet.";
                         return;
                     }
