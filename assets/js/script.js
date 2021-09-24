@@ -152,15 +152,15 @@ fetch(requestUrlgames)
             
             title = title.replaceAll(" ", "+");
             title = title.replaceAll(":", "");
-            console.log(title);
+            
             var bookReq = "https://openlibrary.org/search.json?title=" + title;
-            console.log(bookReq);
+            
             fetch(bookReq)
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
-                    console.log(data)
+                    
 
 
 
@@ -175,7 +175,7 @@ fetch(requestUrlgames)
                         return;
                     }
                     else
-                        console.log(data);
+                        
                     // title and author info
                     bookTitle.textContent = data.docs[0].title;
                     bookAuthor.textContent = data.docs[0].author_name[0];
@@ -269,7 +269,7 @@ function renderSearched() {
     var adventureGenre = "&genre=3";
     var actionGenre = "&genre=4";
     var rpgGenre = "&genre=5";
-    var shooterGenre = "&genre=2";
+    console.log(urlFront.concat(indieGenre, pcPlatform, apiKey))
 
     if (userSelection.genre === "Indie" & userSelection.platform === "PC") {
         requestUrlgames = urlFront.concat(indieGenre, pcPlatform, apiKey);
