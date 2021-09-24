@@ -7,16 +7,24 @@ var saveButton = document.getElementById("Submit");
 $(function () {
     $("#gameInfo").hide();
     fetchGames(requestUrlgames);
+    
 
 });
 
 var i = 1;
 
 function search(id) {
-    tile(id);
-    renderSearched();
-    fetchGames(requestUrlgames);
+   $(".tile").fadeOut();
+   console.log(requestUrlgames);
+   renderSearched()
+   fetchGames(requestUrlgames);
+   $(".tile").fadeIn();
+   console.log(requestUrlgames);
+    
 }
+ 
+
+
 
 
 function info() {
@@ -39,7 +47,7 @@ function tile(id) {
 
     console.log("ran tile")
     let idNum = id.replace(/\D/g, '');
-    console.log("this is the id of clicked box: " + idNum)
+  
     let divRemaining = []
     for (let i = 1; i <= 19; i++) {
         if (i != idNum) {
@@ -69,18 +77,20 @@ function tile(id) {
 
 
     function remTile() {
+        console.log("ran RemTile")
         let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
-        console.log(randomElement);
+        
         $("#box" + randomElement).animate({
             "opacity": 0
         });
         x = divRemaining.indexOf(randomElement)
         divRemaining.splice(x, 1);
-        console.log(divRemaining);
+        
 
     }
 
     function stop() {
+        console.log("ran Stop")
         clearInterval(timer);
         console.log("exited Interval")
         var coord = $("#" + id).offset();
@@ -99,12 +109,13 @@ function tile(id) {
         })
         $("#" + id).empty();
     }
-
+       
 
 
 
 };
 function fetchGames(url){
+    console.log("ran FetchGames")
 fetch(url)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
@@ -113,17 +124,16 @@ fetch(url)
 
     })
     .then(function (data) {
-
+        console.log(data)
         var platSearch = document.getElementById("platform");
         var genreSearch = document.getElementById("genre");
         var usersChoice = platSearch.value;
         var usersChoiceGenre = genreSearch.value;
-        console.log(usersChoice);
-        console.log(usersChoiceGenre);
+       
+        localStorage.setItem("fetchObject", data)
 
 
-
-        console.log(data);
+        
         for (let index = 1; index < data.results.length; index++) {
 
             var gameTitle = document.createElement('p');
@@ -154,8 +164,8 @@ fetch(url)
             divStyleEl.append(ownedEl);
             divStyleEl.append(peoplePlaying);
 
-            displayInfo.append(divStyleEl);
-
+            // displayInfo.append(divStyleEl);
+            
             let url = data.results[index].background_image;
             let title = data.results[index].name;
             $("#box" + index).css({
@@ -165,20 +175,20 @@ fetch(url)
             });
             $("#box" + index).text(title);
             if (!title) {
-                console.log("no title")
+               
             }
 
             title = title.replaceAll(" ", "+");
             title = title.replaceAll(":", "");
-            console.log(title);
+            
             var bookReq = "https://openlibrary.org/search.json?title=" + title;
-            console.log(bookReq);
+          
             fetch(bookReq)
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
-                    console.log(data)
+                  
 
 
 
@@ -192,7 +202,7 @@ fetch(url)
                         bookTitle.textContent = "Sorry, no books available yet.";
                         return;
                     } else
-                        console.log(data);
+                       
                     // title and author info
                     bookTitle.textContent = data.docs[0].title;
                     bookAuthor.textContent = data.docs[0].author_name[0];
@@ -228,7 +238,7 @@ saveButton.addEventListener("click", function (event) {
 
 function renderSearched() {
     var userSelection = JSON.parse(localStorage.getItem("Searched"));
-    console.log(userSelection);
+    console.log("ran renderSearched")
 
     var urlFront = "https://api.rawg.io/api/games?";
     var apiKey = "&key=61eab2930fd5479c99f315c0016527b5";
@@ -268,8 +278,7 @@ function renderSearched() {
     } else if (userSelection.genre === "RPG" & userSelection.platform === "Xbox series X") {
         requestUrlgames = urlFront.concat(rpgGenre, xboxPlatform, apiKey);
     }
-
-    console.log(requestUrlgames);
+    
 
     fetch(requestUrlgames)
 
