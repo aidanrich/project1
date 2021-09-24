@@ -1,9 +1,17 @@
 console.log("you got here");
 var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5";
 
-var displayInfo = document.getElementById('displayInfo');
 var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
+var infoAppend = document.getElementById("info1");
+
+$(function (){
+    for(let i = 1; 1<=18; i++){
+        $("#info"+i).hide();
+    }
+})
+
+
 $(function () {
     
     fetchGames(requestUrlgames);
@@ -165,9 +173,9 @@ fetch(url)
 
             var divStyleEl = document.createElement('div');
 
-            var imageBack = data.results[index].short_screenshots[1].image;
+            // var imageBack = data.results[index].short_screenshots[1].image;
 
-            backgroundImageEl.setAttribute("src", imageBack);
+            // backgroundImageEl.setAttribute("src", imageBack);
 
 
             gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
@@ -177,14 +185,14 @@ fetch(url)
             peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
 
 
-            divStyleEl.append(backgroundImageEl);
+            // divStyleEl.append(backgroundImageEl);
             divStyleEl.append(gameTitle);
             divStyleEl.append(dateReleased);
             divStyleEl.append(genresEl);
             divStyleEl.append(ownedEl);
             divStyleEl.append(peoplePlaying);
 
-            // displayInfo.append(divStyleEl);
+           infoAppend.append(divStyleEl);
             
             let url = data.results[index].background_image;
             let title = data.results[index].name;
@@ -194,6 +202,7 @@ fetch(url)
                 "color": "white"
             });
             $("#box" + index).text(title);
+
             if (!title) {
                
             }
@@ -238,7 +247,10 @@ fetch(url)
 
 
                 });
-        }});
+        }
+    });
+
+        
     };
 
 var platSearch = document.getElementById("platform");
