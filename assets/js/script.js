@@ -6,10 +6,18 @@ var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
 $(function () {
     $("#gameInfo").hide();
+    fetchGames(requestUrlgames);
 
 });
 
 var i = 1;
+
+function search(id) {
+    tile(id);
+    renderSearched();
+    fetchGames(requestUrlgames);
+}
+
 
 function info() {
     $("#infoGrab").hide();
@@ -28,6 +36,8 @@ function info() {
 
 
 function tile(id) {
+
+    console.log("ran tile")
     let idNum = id.replace(/\D/g, '');
     console.log("this is the id of clicked box: " + idNum)
     let divRemaining = []
@@ -44,7 +54,12 @@ function tile(id) {
         if (i <= 18) {
             remTile();
         } else {
-            stop();
+            if (id === "Submit") {
+                clearInterval(timer)
+            } else {
+                stop();
+            };
+
         }
         i = i + 1;
     }, 200)
@@ -87,7 +102,8 @@ function tile(id) {
 
 
 };
-fetch(requestUrlgames)
+function fetchGames(url){
+fetch(url)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
     .then(function (response) {
@@ -149,7 +165,7 @@ fetch(requestUrlgames)
             if (!title) {
                 console.log("no title")
             }
-            
+
             title = title.replaceAll(" ", "+");
             title = title.replaceAll(":", "");
             
@@ -173,9 +189,14 @@ fetch(requestUrlgames)
                     if (data.work_count === 0 || data.numFound === 0) {
                         bookTitle.textContent = "Sorry, no books available yet.";
                         return;
+<<<<<<< HEAD
                     }
                     else
                         
+=======
+                    } else
+                        console.log(data);
+>>>>>>> b39e30075f49df24a0f8b57be17c5c67e406babb
                     // title and author info
                     bookTitle.textContent = data.docs[0].title;
                     bookAuthor.textContent = data.docs[0].author_name[0];
@@ -187,56 +208,18 @@ fetch(requestUrlgames)
 
 
 
-                })
+                });
+        }});
+    };
+
+
+
+
 
             
+        
 
-
-
-
-            fetch(requestUrlgames)
-
-                .then(function (response) {
-                    return response.json();
-
-                })
-                .then(function (data) {
-
-                    for (let index = 1; index < data.results.length; index++) {
-
-                        var gameTitle = document.createElement('p');
-                        var backgroundImageEl = document.createElement('img');
-                        var genresEl = document.createElement('p');
-                        var ownedEl = document.createElement('p');
-                        var dateReleased = document.createElement('p');
-                        var peoplePlaying = document.createElement('p');
-
-                        var divStyleEl = document.createElement('div');
-                        backgroundImageEl.setAttribute("src", imageBack);
-
-
-
-
-                        var imageBack = data.results[index].short_screenshots[1].image;
-                        gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-                        dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-                        genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-                        ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-                        peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
-
-                        divStyleEl.append(backgroundImageEl);
-                        divStyleEl.append(gameTitle);
-                        divStyleEl.append(dateReleased);
-                        divStyleEl.append(genresEl);
-                        divStyleEl.append(ownedEl);
-                        divStyleEl.append(peoplePlaying);
-
-                        gameInfo.append(divStyleEl);
-                    }
-                });
-        }
-
-    });
+    
 
 
 
@@ -313,4 +296,3 @@ var bookTitleCard = document.querySelector(".book-title");
 
 // var searchBook = document.querySelector("#searcher");
 // var bookButton = document.querySelector("#bookbutton");
-
