@@ -6,10 +6,18 @@ var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
 $(function () {
     $("#gameInfo").hide();
+    fetchGames(requestUrlgames);
 
 });
 
 var i = 1;
+
+function search(id) {
+    tile(id);
+    renderSearched();
+    fetchGames(requestUrlgames);
+}
+
 
 function info() {
     $("#infoGrab").hide();
@@ -28,6 +36,8 @@ function info() {
 
 
 function tile(id) {
+
+    console.log("ran tile")
     let idNum = id.replace(/\D/g, '');
     console.log("this is the id of clicked box: " + idNum)
     let divRemaining = []
@@ -44,7 +54,12 @@ function tile(id) {
         if (i <= 18) {
             remTile();
         } else {
-            stop();
+            if (id === "Submit") {
+                clearInterval(timer)
+            } else {
+                stop();
+            };
+
         }
         i = i + 1;
     }, 200)
@@ -193,7 +208,7 @@ fetch(requestUrlgames)
 
         }
 
-    });
+    
 
 
 
