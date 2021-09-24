@@ -70,6 +70,8 @@ function tile(id) {
 
         }
         i = i + 1;
+
+        explodedTile()
     }, 200)
 
 
@@ -216,17 +218,6 @@ fetch(url)
         }});
     };
 
-
-
-
-
-            
-        
-
-    
-
-
-
 var platSearch = document.getElementById("platform");
 var genreSearch = document.getElementById("genre");
 
@@ -240,6 +231,8 @@ saveButton.addEventListener("click", function (event) {
 
     localStorage.setItem("Searched", JSON.stringify(usersChoice));
     renderSearched();
+
+    displayInfo.innerHTML = "";
 
 });
 
@@ -256,7 +249,7 @@ function renderSearched() {
     var adventureGenre = "&genre=3";
     var actionGenre = "&genre=4";
     var rpgGenre = "&genre=5";
-    var shooterGenre = "&genre=2";
+    
 
     if (userSelection.genre === "Indie" & userSelection.platform === "PC") {
         requestUrlgames = urlFront.concat(indieGenre, pcPlatform, apiKey);
@@ -287,8 +280,95 @@ function renderSearched() {
     }
     
 
-}
+    fetch(requestUrlgames)
 
+        .then(function (response) {
+            return response.json();
+
+        })
+        .then(function (data) {
+
+            for (let index = 1; index < data.results.length; index++) {
+
+                var gameTitle = document.createElement('p');
+                var backgroundImageEl = document.createElement('img');
+                var genresEl = document.createElement('p');
+                var ownedEl = document.createElement('p');
+                var dateReleased = document.createElement('p');
+                var peoplePlaying = document.createElement('p');
+
+                var divStyleEl = document.createElement('div');
+                backgroundImageEl.setAttribute("src", imageBack);
+
+
+
+
+                var imageBack = data.results[index].short_screenshots[1].image;
+                gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+                dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+                genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+                ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+                peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+
+                divStyleEl.append(backgroundImageEl);
+                divStyleEl.append(gameTitle);
+                divStyleEl.append(dateReleased);
+                divStyleEl.append(genresEl);
+                divStyleEl.append(ownedEl);
+                divStyleEl.append(peoplePlaying);
+
+                gameInfo.append(divStyleEl);
+
+
+        
+            }
+        });
+}
+console.log(requestUrlgames);
+
+function explodedTile(){
+
+    fetch(requestUrlgames)
+
+    .then(function (response) {
+        return response.json();
+
+    })
+    .then(function (data) {
+
+            var gameTitle = document.createElement('p');
+            var backgroundImageEl = document.createElement('img');
+            var genresEl = document.createElement('p');
+            var ownedEl = document.createElement('p');
+            var dateReleased = document.createElement('p');
+            var peoplePlaying = document.createElement('p');
+
+            var divStyleEl = document.createElement('div');
+            backgroundImageEl.setAttribute("src", imageBack);
+
+
+
+
+            var imageBack = data.results[index].short_screenshots[1].image;
+            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+
+            divStyleEl.append(backgroundImageEl);
+            divStyleEl.append(gameTitle);
+            divStyleEl.append(dateReleased);
+            divStyleEl.append(genresEl);
+            divStyleEl.append(ownedEl);
+            divStyleEl.append(peoplePlaying);
+
+            gameInfo.append(divStyleEl);
+
+
+
+    });
+}
 // Aidan's fetch request
 var bookTitleCard = document.querySelector(".book-title");
 
