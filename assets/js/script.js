@@ -15,7 +15,9 @@ var i = 1;
 function search(id) {
     tile(id);
     renderSearched();
+    
     fetchGames(requestUrlgames);
+   
 }
 
 
