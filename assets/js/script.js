@@ -13,8 +13,11 @@ $(function (){
 
 
 $(function () {
-    
+    for(let i = 1; i<=18;i++){
+        $("#info"+i).hide();
+    }
     fetchGames(requestUrlgames);
+    
     
 
 });
@@ -79,7 +82,7 @@ function tile(id) {
         }
         i = i + 1;
 
-        explodedTile()
+        
     }, 200)
 
 
@@ -98,6 +101,8 @@ function tile(id) {
     }
 
     function stop() {
+
+
         console.log("ran Stop")
         clearInterval(timer);
         console.log("exited Interval")
@@ -120,6 +125,10 @@ function tile(id) {
         let infoNum = id.replace(/\D/g, '');
         let infoId = ("info"+infoNum);
         $(".info").show();
+        console.log(infoId)
+        for(let i = 1; i<=18;i++){
+            $("#info"+i).hide();
+        }
         $("#"+infoId).show();
         $("#" + infoId).css({
             "position": "absolute",
@@ -129,12 +138,12 @@ function tile(id) {
         })
         $("#" + infoId).animate({
             top: "200px",
-            left: "800px",
+            left: "650px",
             width: "40%",
             height: "60%"
 
         })
-
+        
 
     }
        
@@ -163,7 +172,7 @@ fetch(url)
 
         
         for (let index = 1; index < data.results.length; index++) {
-
+            var infoAppend = document.getElementById("info"+index);
             var gameTitle = document.createElement('p');
             var backgroundImageEl = document.createElement('img');
             var genresEl = document.createElement('p');
@@ -177,22 +186,26 @@ fetch(url)
 
             // backgroundImageEl.setAttribute("src", imageBack);
 
+// var imageBack = data.results[index].short_screenshots[1].image;
 
-            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+            // backgroundImageEl.setAttribute("src", imageBack);
 
 
-            // divStyleEl.append(backgroundImageEl);
-            divStyleEl.append(gameTitle);
-            divStyleEl.append(dateReleased);
-            divStyleEl.append(genresEl);
-            divStyleEl.append(ownedEl);
-            divStyleEl.append(peoplePlaying);
+            gameTitle = ("Game Title: "  + data.results[index].name);
+            dateReleased = ("Release Date: " + " " + data.results[index].released);
+            genresEl = "Genre type:" + " " + data.results[index].genres[0].name;
+            ownedEl = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+            peoplePlaying= "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
 
-           infoAppend.append(divStyleEl);
+
+        //     // divStyleEl.append(backgroundImageEl);
+        //     divStyleEl.append(gameTitle);
+        //     divStyleEl.append(dateReleased);
+        //     divStyleEl.append(genresEl);
+        //     divStyleEl.append(ownedEl);
+        //     divStyleEl.append(peoplePlaying);
+
+        //    infoAppend.append(divStyleEl);
             
             let url = data.results[index].background_image;
             let title = data.results[index].name;
@@ -202,6 +215,11 @@ fetch(url)
                 "color": "white"
             });
             $("#box" + index).text(title);
+            $("#info"+ index).text(gameTitle)
+            $("#info" + index).append(`${dateReleased} <br>`);
+            $("#info" + index).append(`${genresEl} <br>`);
+            $("#info" + index).append(`${ownedEl} <br>`);
+            $("#info" + index).append(`${peoplePlaying} <br>`);
 
             if (!title) {
                
@@ -240,9 +258,9 @@ fetch(url)
                     bookAuthor.textContent = data.docs[0].author_name[0];
                     // bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.docs[0].cover_id}-L.jpg`);
 
-                    bookTitleCard.append(bookTitle);
-                    bookTitleCard.append(bookAuthor);
-                    bookTitleCard.append(bookCover);
+                    // bookTitleCard.append(bookTitle);
+                    // bookTitleCard.append(bookAuthor);
+                    // bookTitleCard.append(bookCover);
 
 
 
@@ -361,49 +379,49 @@ function renderSearched() {
 }
 console.log(requestUrlgames);
 
-function explodedTile(){
+// function explodedTile(){
 
-    fetch(requestUrlgames)
+//     fetch(requestUrlgames)
 
-    .then(function (response) {
-        return response.json();
+//     .then(function (response) {
+//         return response.json();
 
-    })
-    .then(function (data) {
+//     })
+//     .then(function (data) {
 
-            var gameTitle = document.createElement('p');
-            var backgroundImageEl = document.createElement('img');
-            var genresEl = document.createElement('p');
-            var ownedEl = document.createElement('p');
-            var dateReleased = document.createElement('p');
-            var peoplePlaying = document.createElement('p');
+//             var gameTitle = document.createElement('p');
+//             var backgroundImageEl = document.createElement('img');
+//             var genresEl = document.createElement('p');
+//             var ownedEl = document.createElement('p');
+//             var dateReleased = document.createElement('p');
+//             var peoplePlaying = document.createElement('p');
 
-            var divStyleEl = document.createElement('div');
-            backgroundImageEl.setAttribute("src", imageBack);
-
-
-
-
-            var imageBack = data.results[index].short_screenshots[1].image;
-            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
-
-            divStyleEl.append(backgroundImageEl);
-            divStyleEl.append(gameTitle);
-            divStyleEl.append(dateReleased);
-            divStyleEl.append(genresEl);
-            divStyleEl.append(ownedEl);
-            divStyleEl.append(peoplePlaying);
-
-            gameInfo.append(divStyleEl);
+//             var divStyleEl = document.createElement('div');
+//             backgroundImageEl.setAttribute("src", imageBack);
 
 
 
-    });
-}
+
+//             var imageBack = data.results[index].short_screenshots[1].image;
+//             gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+//             dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+//             genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+//             ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+//             peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+
+//             divStyleEl.append(backgroundImageEl);
+//             divStyleEl.append(gameTitle);
+//             divStyleEl.append(dateReleased);
+//             divStyleEl.append(genresEl);
+//             divStyleEl.append(ownedEl);
+//             divStyleEl.append(peoplePlaying);
+
+//             gameInfo.append(divStyleEl);
+
+
+
+//     });
+// }
 // Aidan's fetch request
 var bookTitleCard = document.querySelector(".book-title");
 
