@@ -145,9 +145,6 @@ fetch(requestUrlgames)
                 "color": "white"
             });
             $("#box" + index).text(title);
-<<<<<<< HEAD
-          
-=======
 
             fetch("https://openlibrary.org/search.json?title=" + title.value + "published_in=2000-2021")
                 .then(function (response) {
@@ -228,7 +225,6 @@ fetch(requestUrlgames)
                         gameInfo.append(divStyleEl);
                     }
                 });
->>>>>>> 3229f75dc5988d307730513672cdb934bc569f6c
         }
 
     });
