@@ -194,6 +194,7 @@ fetch(url)
                 "color": "white"
             });
             $("#box" + index).text(title);
+            $("#info" + index).text(title);
             if (!title) {
                
             }
