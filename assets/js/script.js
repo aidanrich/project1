@@ -102,9 +102,8 @@ function tile(id) {
 
 
 };
-
-
-fetch(requestUrlgames)
+function fetchGames(url){
+fetch(url)
     //fetch is first calling for the URL the promising to wait until it is ready to
 
     .then(function (response) {
@@ -203,10 +202,16 @@ fetch(requestUrlgames)
 
 
 
-                })
+                });
+        }});
+    };
 
 
-        }
+
+
+
+            
+        
 
     
 
