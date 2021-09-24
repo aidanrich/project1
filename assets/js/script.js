@@ -7,24 +7,16 @@ var saveButton = document.getElementById("Submit");
 $(function () {
     $("#gameInfo").hide();
     fetchGames(requestUrlgames);
-    
 
 });
 
 var i = 1;
 
 function search(id) {
-   $(".tile").fadeOut();
-   console.log(requestUrlgames);
-   renderSearched()
-   fetchGames(requestUrlgames);
-   $(".tile").fadeIn();
-   console.log(requestUrlgames);
-    
+    tile(id);
+    renderSearched();
+    fetchGames(requestUrlgames);
 }
- 
-
-
 
 
 function info() {
@@ -47,7 +39,7 @@ function tile(id) {
 
     console.log("ran tile")
     let idNum = id.replace(/\D/g, '');
-  
+    console.log("this is the id of clicked box: " + idNum)
     let divRemaining = []
     for (let i = 1; i <= 19; i++) {
         if (i != idNum) {
@@ -70,27 +62,23 @@ function tile(id) {
 
         }
         i = i + 1;
-
-        explodedTile()
     }, 200)
 
 
 
     function remTile() {
-        console.log("ran RemTile")
         let randomElement = divRemaining[Math.floor(Math.random() * divRemaining.length)];
-        
+        console.log(randomElement);
         $("#box" + randomElement).animate({
             "opacity": 0
         });
         x = divRemaining.indexOf(randomElement)
         divRemaining.splice(x, 1);
-        
+        console.log(divRemaining);
 
     }
 
     function stop() {
-        console.log("ran Stop")
         clearInterval(timer);
         console.log("exited Interval")
         var coord = $("#" + id).offset();
@@ -109,26 +97,18 @@ function tile(id) {
         })
         $("#" + id).empty();
     }
-       
+
 
 
 
 };
-<<<<<<< HEAD
 function fetchGames(url) {
     fetch(url)
         //fetch is first calling for the URL the promising to wait until it is ready to
-=======
-function fetchGames(url){
-    console.log("ran FetchGames")
-fetch(url)
-    //fetch is first calling for the URL the promising to wait until it is ready to
->>>>>>> 31c8116cd9015deb4a733df89f22bc545ae094ae
 
         .then(function (response) {
             return response.json();
 
-<<<<<<< HEAD
         })
         .then(function (data) {
 
@@ -143,21 +123,6 @@ fetch(url)
 
             console.log(data);
             for (let index = 1; index < data.results.length; index++) {
-=======
-    })
-    .then(function (data) {
-        console.log(data)
-        var platSearch = document.getElementById("platform");
-        var genreSearch = document.getElementById("genre");
-        var usersChoice = platSearch.value;
-        var usersChoiceGenre = genreSearch.value;
-       
-        localStorage.setItem("fetchObject", data)
-
-
-        
-        for (let index = 1; index < data.results.length; index++) {
->>>>>>> 31c8116cd9015deb4a733df89f22bc545ae094ae
 
                 var gameTitle = document.createElement('p');
                 var backgroundImageEl = document.createElement('img');
@@ -187,7 +152,6 @@ fetch(url)
                 divStyleEl.append(ownedEl);
                 divStyleEl.append(peoplePlaying);
 
-<<<<<<< HEAD
                 // displayInfo.append(divStyleEl);
 
                 let url = data.results[index].background_image;
@@ -204,33 +168,6 @@ fetch(url)
 
                 title = title.replaceAll(" ", "+");
                 title = title.replaceAll(":", "");
-=======
-            // displayInfo.append(divStyleEl);
-            
-            let url = data.results[index].background_image;
-            let title = data.results[index].name;
-            $("#box" + index).css({
-                "background-image": "url(" + url + ")",
-                "background-size": "cover",
-                "color": "white"
-            });
-            $("#box" + index).text(title);
-            if (!title) {
-               
-            }
-
-            title = title.replaceAll(" ", "+");
-            title = title.replaceAll(":", "");
-            
-            var bookReq = "https://openlibrary.org/search.json?title=" + title;
-          
-            fetch(bookReq)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                  
->>>>>>> 31c8116cd9015deb4a733df89f22bc545ae094ae
 
                 var bookReq = "https://openlibrary.org/search.json?title=" + title;
 
@@ -243,18 +180,6 @@ fetch(url)
 
 
 
-<<<<<<< HEAD
-=======
-                    if (data.work_count === 0 || data.numFound === 0) {
-                        bookTitle.textContent = "Sorry, no books available yet.";
-                        return;
-                    } else
-                       
-                    // title and author info
-                    bookTitle.textContent = data.docs[0].title;
-                    bookAuthor.textContent = data.docs[0].author_name[0];
-                    // bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.docs[0].cover_id}-L.jpg`);
->>>>>>> 31c8116cd9015deb4a733df89f22bc545ae094ae
 
                         var bookTitle = document.createElement('h4');
                         var bookAuthor = document.createElement('h4');
@@ -285,7 +210,6 @@ fetch(url)
 
 
 
-<<<<<<< HEAD
 
 
 
@@ -294,8 +218,6 @@ fetch(url)
 
 
 
-=======
->>>>>>> 31c8116cd9015deb4a733df89f22bc545ae094ae
 var platSearch = document.getElementById("platform");
 var genreSearch = document.getElementById("genre");
 
@@ -310,13 +232,11 @@ saveButton.addEventListener("click", function (event) {
     localStorage.setItem("Searched", JSON.stringify(usersChoice));
     renderSearched();
 
-    displayInfo.innerHTML = "";
-
 });
 
 function renderSearched() {
     var userSelection = JSON.parse(localStorage.getItem("Searched"));
-    console.log("ran renderSearched")
+    console.log(userSelection);
 
     var urlFront = "https://api.rawg.io/api/games?";
     var apiKey = "&key=61eab2930fd5479c99f315c0016527b5";
@@ -327,11 +247,7 @@ function renderSearched() {
     var adventureGenre = "&genre=3";
     var actionGenre = "&genre=4";
     var rpgGenre = "&genre=5";
-<<<<<<< HEAD
     console.log(urlFront.concat(indieGenre, pcPlatform, apiKey))
-=======
-    
->>>>>>> 31c8116cd9015deb4a733df89f22bc545ae094ae
 
     if (userSelection.genre === "Indie" & userSelection.platform === "PC") {
         requestUrlgames = urlFront.concat(indieGenre, pcPlatform, apiKey);
@@ -360,99 +276,12 @@ function renderSearched() {
     } else if (userSelection.genre === "RPG" & userSelection.platform === "Xbox series X") {
         requestUrlgames = urlFront.concat(rpgGenre, xboxPlatform, apiKey);
     }
-    
+    console.log(requestUrlgames);
 
-    fetch(requestUrlgames)
-
-        .then(function (response) {
-            return response.json();
-
-        })
-        .then(function (data) {
-
-            for (let index = 1; index < data.results.length; index++) {
-
-                var gameTitle = document.createElement('p');
-                var backgroundImageEl = document.createElement('img');
-                var genresEl = document.createElement('p');
-                var ownedEl = document.createElement('p');
-                var dateReleased = document.createElement('p');
-                var peoplePlaying = document.createElement('p');
-
-                var divStyleEl = document.createElement('div');
-                backgroundImageEl.setAttribute("src", imageBack);
-
-
-
-
-                var imageBack = data.results[index].short_screenshots[1].image;
-                gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-                dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-                genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-                ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-                peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
-
-                divStyleEl.append(backgroundImageEl);
-                divStyleEl.append(gameTitle);
-                divStyleEl.append(dateReleased);
-                divStyleEl.append(genresEl);
-                divStyleEl.append(ownedEl);
-                divStyleEl.append(peoplePlaying);
-
-                gameInfo.append(divStyleEl);
-
-
-        
-            }
-        });
 }
-console.log(requestUrlgames);
 
-function explodedTile(){
-
-    fetch(requestUrlgames)
-
-    .then(function (response) {
-        return response.json();
-
-    })
-    .then(function (data) {
-
-            var gameTitle = document.createElement('p');
-            var backgroundImageEl = document.createElement('img');
-            var genresEl = document.createElement('p');
-            var ownedEl = document.createElement('p');
-            var dateReleased = document.createElement('p');
-            var peoplePlaying = document.createElement('p');
-
-            var divStyleEl = document.createElement('div');
-            backgroundImageEl.setAttribute("src", imageBack);
-
-
-
-
-            var imageBack = data.results[index].short_screenshots[1].image;
-            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
-
-            divStyleEl.append(backgroundImageEl);
-            divStyleEl.append(gameTitle);
-            divStyleEl.append(dateReleased);
-            divStyleEl.append(genresEl);
-            divStyleEl.append(ownedEl);
-            divStyleEl.append(peoplePlaying);
-
-            gameInfo.append(divStyleEl);
-
-
-
-    });
-}
 // Aidan's fetch request
-var bookTitleCard = document.querySelector("#gameInfo");
+var bookTitleCard = document.querySelector(".book-title");
 
 
 
