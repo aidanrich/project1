@@ -102,124 +102,119 @@ function tile(id) {
 
 
 };
-function fetchGames(url){
-fetch(url)
-    //fetch is first calling for the URL the promising to wait until it is ready to
+function fetchGames(url) {
+    fetch(url)
+        //fetch is first calling for the URL the promising to wait until it is ready to
 
-    .then(function (response) {
-        return response.json();
+        .then(function (response) {
+            return response.json();
 
-    })
-    .then(function (data) {
+        })
+        .then(function (data) {
 
-        var platSearch = document.getElementById("platform");
-        var genreSearch = document.getElementById("genre");
-        var usersChoice = platSearch.value;
-        var usersChoiceGenre = genreSearch.value;
-        console.log(usersChoice);
-        console.log(usersChoiceGenre);
-
-
-
-        console.log(data);
-        for (let index = 1; index < data.results.length; index++) {
-
-            var gameTitle = document.createElement('p');
-            var backgroundImageEl = document.createElement('img');
-            var genresEl = document.createElement('p');
-            var ownedEl = document.createElement('p');
-            var dateReleased = document.createElement('p');
-            var peoplePlaying = document.createElement('p');
-
-            var divStyleEl = document.createElement('div');
-
-            var imageBack = data.results[index].short_screenshots[1].image;
-
-            backgroundImageEl.setAttribute("src", imageBack);
-
-
-            gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-            dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-            genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-            ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-            peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
-
-
-            divStyleEl.append(backgroundImageEl);
-            divStyleEl.append(gameTitle);
-            divStyleEl.append(dateReleased);
-            divStyleEl.append(genresEl);
-            divStyleEl.append(ownedEl);
-            divStyleEl.append(peoplePlaying);
-
-            // displayInfo.append(divStyleEl);
-
-            let url = data.results[index].background_image;
-            let title = data.results[index].name;
-            $("#box" + index).css({
-                "background-image": "url(" + url + ")",
-                "background-size": "cover",
-                "color": "white"
-            });
-            $("#box" + index).text(title);
-            if (!title) {
-                console.log("no title")
-            }
-
-            title = title.replaceAll(" ", "+");
-            title = title.replaceAll(":", "");
-            
-            var bookReq = "https://openlibrary.org/search.json?title=" + title;
-            
-            fetch(bookReq)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    
+            var platSearch = document.getElementById("platform");
+            var genreSearch = document.getElementById("genre");
+            var usersChoice = platSearch.value;
+            var usersChoiceGenre = genreSearch.value;
+            console.log(usersChoice);
+            console.log(usersChoiceGenre);
 
 
 
+            console.log(data);
+            for (let index = 1; index < data.results.length; index++) {
 
-                    var bookTitle = document.createElement('h4');
-                    var bookAuthor = document.createElement('h4');
-                    var bookCover = document.createElement('img');
+                var gameTitle = document.createElement('p');
+                var backgroundImageEl = document.createElement('img');
+                var genresEl = document.createElement('p');
+                var ownedEl = document.createElement('p');
+                var dateReleased = document.createElement('p');
+                var peoplePlaying = document.createElement('p');
 
+                var divStyleEl = document.createElement('div');
 
-                    if (data.work_count === 0 || data.numFound === 0) {
-                        bookTitle.textContent = "Sorry, no books available yet.";
-                        return;
-<<<<<<< HEAD
-                    }
-                    else
-                        
-=======
-                    } else
-                        console.log(data);
->>>>>>> b39e30075f49df24a0f8b57be17c5c67e406babb
-                    // title and author info
-                    bookTitle.textContent = data.docs[0].title;
-                    bookAuthor.textContent = data.docs[0].author_name[0];
-                    // bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.docs[0].cover_id}-L.jpg`);
+                var imageBack = data.results[index].short_screenshots[1].image;
 
-                    bookTitleCard.append(bookTitle);
-                    bookTitleCard.append(bookAuthor);
-                    bookTitleCard.append(bookCover);
+                backgroundImageEl.setAttribute("src", imageBack);
 
 
+                gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+                dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+                genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+                ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+                peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
 
+
+                divStyleEl.append(backgroundImageEl);
+                divStyleEl.append(gameTitle);
+                divStyleEl.append(dateReleased);
+                divStyleEl.append(genresEl);
+                divStyleEl.append(ownedEl);
+                divStyleEl.append(peoplePlaying);
+
+                // displayInfo.append(divStyleEl);
+
+                let url = data.results[index].background_image;
+                let title = data.results[index].name;
+                $("#box" + index).css({
+                    "background-image": "url(" + url + ")",
+                    "background-size": "cover",
+                    "color": "white"
                 });
-        }});
-    };
+                $("#box" + index).text(title);
+                if (!title) {
+                    console.log("no title")
+                }
+
+                title = title.replaceAll(" ", "+");
+                title = title.replaceAll(":", "");
+
+                var bookReq = "https://openlibrary.org/search.json?title=" + title;
+
+                fetch(bookReq)
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
 
 
 
 
 
-            
-        
+                        var bookTitle = document.createElement('h4');
+                        var bookAuthor = document.createElement('h4');
+                        var bookCover = document.createElement('img');
 
-    
+
+                        if (data.work_count === 0 || data.numFound === 0) {
+                            bookTitle.textContent = "Sorry, no books available yet.";
+                            return;
+                        } else
+                            console.log(data);
+                        // title and author info
+                        bookTitle.textContent = "Book title: " + data.docs[0].title;
+                        bookAuthor.textContent = "Author: " + data.docs[0].author_name[0];
+                        // bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.docs[0].cover_id}-L.jpg`);
+
+                        bookTitleCard.append(bookTitle);
+                        bookTitleCard.append(bookAuthor);
+                        bookTitleCard.append(bookCover);
+
+
+
+                    });
+            }
+        });
+};
+
+
+
+
+
+
+
+
+
 
 
 
