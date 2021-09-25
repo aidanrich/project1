@@ -1,6 +1,6 @@
 console.log("you got here");
-var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5";
-
+var requestUrlgamesO = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5";
+var requestUrlgames = ""
 
 var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
@@ -8,24 +8,31 @@ $(function () {
     for(let i = 1; i<=18;i++){
         $("#info"+i).hide();
     }
-    fetchGames(requestUrlgames);
+    fetchGames(requestUrlgamesO);
     
     
 
 });
 
+function home(){
+    location.reload();
+}
+
+
+
 var i = 1;
 
 function search(id) {
-   $(".tile").fadeOut();
+   
    console.log(requestUrlgames);
    renderSearched()
    fetchGames(requestUrlgames);
-   $(".tile").fadeIn();
+  
    console.log(requestUrlgames);
     
 }
  
+
 
 
 
@@ -99,6 +106,8 @@ function tile(id) {
         clearInterval(timer);
         console.log("exited Interval")
         var coord = $("#" + id).offset();
+        var w = $("#"+id).width();
+        var h = $("#"+id).height();
         $("#" + id).css({
             "position": "absolute",
             "top": coord.top,
@@ -136,6 +145,11 @@ function tile(id) {
 
         })
         
+           
+            
+        
+        
+        
 
     }
        
@@ -144,6 +158,9 @@ function tile(id) {
 
 };
 function fetchGames(url){
+
+    $(".tile").fadeOut();
+
     console.log("ran FetchGames")
 fetch(url)
     //fetch is first calling for the URL the promising to wait until it is ready to
@@ -206,8 +223,9 @@ fetch(url)
                 "background-size": "cover",
                 "color": "white"
             });
+            $("#info" + index).empty();
             $("#box" + index).text(title);
-            $("#info"+ index).text(gameTitle)
+            $("#info" + index).append(`${gameTitle} <br>`);
             $("#info" + index).append(`${dateReleased} <br>`);
             $("#info" + index).append(`${genresEl} <br>`);
             $("#info" + index).append(`${ownedEl} <br>`);
@@ -218,7 +236,7 @@ fetch(url)
             }
 
 
-
+            $(".tile").fadeIn();
 
             title = title.replaceAll(" ", "+");
             title = title.replaceAll(":", "");
@@ -348,22 +366,22 @@ function renderSearched() {
 
 
 
-                var imageBack = data.results[index].short_screenshots[1].image;
-                backgroundImageEl.setAttribute("src", imageBack);
-                gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
-                dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
-                genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
-                ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
-                peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
+                // var imageBack = data.results[index].short_screenshots[1].image;
+                // backgroundImageEl.setAttribute("src", imageBack);
+                // gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
+                // dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
+                // genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
+                // ownedEl.innerHTML = "People who own this game:" + " " + data.results[index].added_by_status.owned;
+                // peoplePlaying.innerHTML = "Number of people Playing:" + " " + data.results[index].added_by_status.playing;
 
-                divStyleEl.append(backgroundImageEl);
-                divStyleEl.append(gameTitle);
-                divStyleEl.append(dateReleased);
-                divStyleEl.append(genresEl);
-                divStyleEl.append(ownedEl);
-                divStyleEl.append(peoplePlaying);
+                // divStyleEl.append(backgroundImageEl);
+                // divStyleEl.append(gameTitle);
+                // divStyleEl.append(dateReleased);
+                // divStyleEl.append(genresEl);
+                // divStyleEl.append(ownedEl);
+                // divStyleEl.append(peoplePlaying);
 
-                gameInfo.append(divStyleEl);
+                // gameInfo.append(divStyleEl);
 
 
         
