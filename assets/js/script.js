@@ -1,17 +1,9 @@
 console.log("you got here");
 var requestUrlgames = "https://api.rawg.io/api/games?key=61eab2930fd5479c99f315c0016527b5";
 
+
 var gameInfo = document.getElementById('gameInfo');
 var saveButton = document.getElementById("Submit");
-var infoAppend = document.getElementById("info1");
-
-$(function (){
-    for(let i = 1; 1<=18; i++){
-        $("#info"+i).hide();
-    }
-})
-
-
 $(function () {
     for(let i = 1; i<=18;i++){
         $("#info"+i).hide();
@@ -182,9 +174,9 @@ fetch(url)
 
             var divStyleEl = document.createElement('div');
 
-            // var imageBack = data.results[index].short_screenshots[1].image;
+            var imageBack = data.results[index].short_screenshots[1].image;
 
-            // backgroundImageEl.setAttribute("src", imageBack);
+            backgroundImageEl.setAttribute("src", imageBack);
 
 // var imageBack = data.results[index].short_screenshots[1].image;
 
@@ -265,10 +257,7 @@ fetch(url)
 
 
                 });
-        }
-    });
-
-        
+        }});
     };
 
 var platSearch = document.getElementById("platform");
