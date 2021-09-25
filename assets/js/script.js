@@ -249,7 +249,7 @@ fetch(url)
                     bookTitle.textContent = data.docs[0].title;
                     bookAuthor.textContent = data.docs[0].author_name[0];
                     // bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.docs[0].cover_id}-L.jpg`);
-
+                    $("#info"+ index).append(bookTitle)
                     // bookTitleCard.append(bookTitle);
                     // bookTitleCard.append(bookAuthor);
                     // bookTitleCard.append(bookCover);
