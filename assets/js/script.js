@@ -222,6 +222,9 @@ fetch(url)
 
             title = title.replaceAll(" ", "+");
             title = title.replaceAll(":", "");
+            title = title.replaceAll("-", "");
+            title = title.replaceAll(")", "");
+            title = title.replaceAll("(", "");
             
             var bookReq = "https://openlibrary.org/search.json?title=" + title;
           
@@ -246,10 +249,12 @@ fetch(url)
                     } else
                        
                     // title and author info
-                    bookTitle.textContent = data.docs[0].title;
-                    bookAuthor.textContent = data.docs[0].author_name[0];
+                    bookTitle.textContent = "Some reading material: " + data.docs[0].title;
+                    bookAuthor.textContent = "Author: " + data.docs[0].author_name[0];
                     // bookCover.setAttribute("src", `https://ia600602.us.archive.org/view_archive.php?archive=/10/items/olcovers573/olcovers573-L.zip&file=${data.docs[0].cover_id}-L.jpg`);
 
+                    $("#info" + index).append(bookTitle);
+                    $("#info" + index).append(bookAuthor);
                     // bookTitleCard.append(bookTitle);
                     // bookTitleCard.append(bookAuthor);
                     // bookTitleCard.append(bookCover);
@@ -274,7 +279,7 @@ saveButton.addEventListener("click", function (event) {
     localStorage.setItem("Searched", JSON.stringify(usersChoice));
     renderSearched();
 
-    displayInfo.innerHTML = "";
+    // displayInfo.innerHTML = "";
 
 });
 
@@ -340,12 +345,13 @@ function renderSearched() {
                 var peoplePlaying = document.createElement('p');
 
                 var divStyleEl = document.createElement('div');
-                backgroundImageEl.setAttribute("src", imageBack);
+                
 
 
 
 
                 var imageBack = data.results[index].short_screenshots[1].image;
+                backgroundImageEl.setAttribute("src", imageBack);
                 gameTitle.innerHTML = "Game Title: " + " " + data.results[index].name;
                 dateReleased.innerHTML = "Release Date: " + " " + data.results[index].released;
                 genresEl.innerHTML = "Genre type:" + " " + data.results[index].genres[0].name;
